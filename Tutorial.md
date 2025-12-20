@@ -1,4 +1,4 @@
-# **React Crash Course 2025 **
+# **React Crash Course 2025**
 
 This guide is designed for **engineers who want to understand React**, from mental models, architecture, tooling, to implementing a fully-featured app.
 
