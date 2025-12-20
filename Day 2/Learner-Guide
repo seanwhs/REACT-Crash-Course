@@ -1,0 +1,285 @@
+# **React Crash Course 2025 — Day 2 Learner Guide**
+
+## **Day 2 Theme**
+
+**Side Effects, API Integration & Component Architecture**
+
+Today you will move from **static state** to **real-world React** by:
+
+• Fetching data from APIs
+• Understanding and using `useEffect` correctly
+• Handling loading and error states
+• Breaking your app into clean, reusable components
+
+By the end of Day 2, your app will feel **alive** — data-driven, modular, and scalable.
+
+---
+
+## **What You Should Already Know (Day 1 Recap)**
+
+Before continuing, make sure you are comfortable with:
+
+✔ `useState`
+✔ State → UI mental model
+✔ Immutability
+✔ Conditional rendering
+✔ Mapping arrays to JSX
+
+If any of these feel unclear, review Day 1 materials before proceeding.
+
+---
+
+## **1. What Are Side Effects in React?**
+
+A **side effect** is anything that happens **outside** React’s rendering process.
+
+Examples:
+
+• Fetching data from an API
+• Reading from local storage
+• Logging to the console
+• Subscribing to events
+
+### **Why React Cares**
+
+React rendering must be **pure**:
+
+```js
+UI = f(state)
+```
+
+If side effects run during rendering, React can:
+
+• Re-run them multiple times
+• Cause infinite loops
+• Produce unpredictable behavior
+
+➡️ Side effects must be isolated.
+
+---
+
+## **2. Introducing `useEffect`**
+
+`useEffect` is React’s way to **safely run side effects**.
+
+### **Basic Syntax**
+
+```js
+useEffect(() => {
+  // side effect logic
+}, []);
+```
+
+This effect runs **once** when the component mounts.
+
+---
+
+### **The Dependency Array Mental Model**
+
+| Dependency Array | Behavior                  |
+| ---------------- | ------------------------- |
+| omitted          | Runs on every render      |
+| `[]`             | Runs once (on mount)      |
+| `[value]`        | Runs when `value` changes |
+
+---
+
+### **Common Beginner Mistake**
+
+❌ This causes an infinite loop:
+
+```js
+useEffect(() => {
+  setCount(count + 1);
+});
+```
+
+Why?
+• Effect runs
+• State updates
+• Component re-renders
+• Effect runs again
+
+---
+
+## **3. Fetching Data from an API**
+
+Most real apps depend on **external data**.
+
+### **Correct Pattern**
+
+```js
+useEffect(() => {
+  async function fetchData() {
+    const res = await fetch(url);
+    const data = await res.json();
+    setState(data);
+  }
+  fetchData();
+}, []);
+```
+
+---
+
+### **Why Fetch Inside `useEffect`?**
+
+• Runs after initial render
+• Prevents blocking UI
+• Aligns with React lifecycle
+
+Never fetch data directly inside JSX or during render.
+
+---
+
+## **4. Loading and Error States**
+
+When fetching data, your app has **three states**:
+
+1. Loading
+2. Success
+3. Error
+
+### **State Setup**
+
+```js
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
+```
+
+---
+
+### **Conditional Rendering Pattern**
+
+```jsx
+if (loading) return <p>Loading...</p>;
+if (error) return <p>Something went wrong</p>;
+```
+
+---
+
+### **Why This Matters**
+
+Without loading/error handling:
+
+• Users see blank screens
+• Bugs feel random
+• UX suffers
+
+A professional app **always communicates state**.
+
+---
+
+## **5. Component Extraction — Why and When**
+
+As apps grow, components get messy.
+
+### **Symptoms You Need Extraction**
+
+• `App.jsx` > 200 lines
+• Repeated JSX
+• Mixed responsibilities
+
+---
+
+### **Component Roles**
+
+| Component | Responsibility     |
+| --------- | ------------------ |
+| App       | Owns state & logic |
+| TaskList  | Renders list       |
+| TaskItem  | Renders one item   |
+
+---
+
+## **6. Props: Data Flow Between Components**
+
+Props are how data flows **downward**.
+
+```jsx
+<TaskItem task={task} onDelete={handleDelete} />
+```
+
+### **Rules of Props**
+
+• Read-only
+• Parent owns state
+• Child triggers callbacks
+
+---
+
+### **Callback Pattern**
+
+```js
+function TaskItem({ task, onDelete }) {
+  return <button onClick={() => onDelete(task.id)}>Delete</button>;
+}
+```
+
+Child doesn’t delete — it **requests** deletion.
+
+---
+
+## **7. Refactoring Your App (Conceptual Steps)**
+
+You will do this in the lab:
+
+1. Fetch initial tasks from an API
+2. Store tasks in state
+3. Add loading and error states
+4. Extract `TaskList` and `TaskItem`
+5. Pass props cleanly
+
+---
+
+## **8. Mental Models to Lock In Today**
+
+### **Rendering Model**
+
+• State changes → Re-render
+• Effects run after render
+• UI always reflects state
+
+---
+
+### **Architecture Model**
+
+• App owns data
+• Children display data
+• Events flow upward
+
+---
+
+## **9. Common Mistakes to Avoid**
+
+❌ Fetching data inside JSX
+❌ Forgetting dependency arrays
+❌ Mutating state directly
+❌ Letting children manage parent state
+
+---
+
+## **10. End-of-Day Checklist**
+
+By the end of Day 2, you should have:
+
+✔ API-driven data
+✔ `useEffect` used correctly
+✔ Loading and error UI
+✔ Extracted components
+✔ Clean props flow
+
+---
+
+## **What’s Coming on Day 3**
+
+Tomorrow you will:
+
+• Persist data
+• Improve performance
+• Introduce advanced hooks
+• Prepare your app for production
+
+You are now working with **real React patterns**, not just examples.
+
+---
+
