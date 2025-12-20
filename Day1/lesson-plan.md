@@ -1,177 +1,68 @@
-# **Day 1 Lab – React Crash Course 2025**
+# **Day 1 Lesson Plan – React Crash Course 2025**
 
-## **Objective**
+**Theme:** Foundations – Environment, JSX, Functional Components, State, and Lists
 
-* Set up a React environment with Vite
-* Learn JSX, functional components, and basic state management
-* Build the **starter skeleton** for a simple **Note Keeper** app (completely different from TaskMaster)
+**Duration:** 6–7 hours (adjustable)
 
----
+**Learning Outcomes:**
+By the end of Day 1, participants will be able to:
 
-## **Lab 1.1 – Environment Setup**
-
-**Steps:**
-
-1. Check Node.js & npm versions:
-
-```bash
-node -v
-npm -v
-```
-
-2. Scaffold a new Vite React project:
-
-```bash
-npm create vite@latest note-keeper -- --template react
-cd note-keeper
-npm install
-npm run dev
-```
-
-3. Open the app in your browser at `http://localhost:5173`.
+1. Set up a modern React environment with Vite and Node.js
+2. Explain declarative UI vs imperative DOM manipulation
+3. Create functional components and reuse them
+4. Manage internal component state with `useState`
+5. Render dynamic lists using `.map()` and unique `key`s
+6. Apply minimal CSS styling to React components
 
 ---
 
-## **Lab 1.2 – Clean Up Default App**
+## **Schedule & Activities**
 
-* Open `App.jsx` and remove all default content.
-* Add a simple root element:
-
-```jsx
-function App() {
-  return (
-    <div>
-      <h1>Note Keeper</h1>
-      <p>Welcome to your new React app!</p>
-    </div>
-  );
-}
-
-export default App;
-```
-
-* Verify that the browser updates instantly (HMR in action).
+| Time          | Topic                           | Method               | Notes / Lab Link                                                         |
+| ------------- | ------------------------------- | -------------------- | ------------------------------------------------------------------------ |
+| 09:00 – 09:30 | **Introduction & Objectives**   | Lecture              | Overview of React, mental model, course structure                        |
+| 09:30 – 10:15 | **React Architecture**          | Lecture + Slides     | Declarative vs Imperative UI, Virtual DOM, One-way data flow             |
+| 10:15 – 10:45 | **Tooling & Environment Setup** | Demo                 | Node.js, npm, Vite setup                                                 |
+| 10:45 – 11:00 | **Break**                       | –                    | –                                                                        |
+| 11:00 – 12:30 | **JSX & Functional Components** | Hands-on Lab 1.2–1.3 | Build the skeleton Note Keeper app, create `Note` component              |
+| 12:30 – 13:30 | **Lunch Break**                 | –                    | –                                                                        |
+| 13:30 – 14:30 | **State with `useState`**       | Lecture + Lab 1.4    | Add dynamic note input, render notes dynamically                         |
+| 14:30 – 15:15 | **Rendering Lists & Keys**      | Lab + Discussion     | Explain `.map()` usage, importance of `key` for reconciliation           |
+| 15:15 – 15:30 | **Break**                       | –                    | –                                                                        |
+| 15:30 – 16:15 | **Event Handling & Forms**      | Lab 1.4              | Handling input events, `onChange`, `onClick`                             |
+| 16:15 – 16:45 | **Basic Styling**               | Lab 1.5              | Minimal CSS for note components                                          |
+| 16:45 – 17:15 | **Reflection & Q/A**            | Discussion           | Review Day 1 concepts, answer questions, preview Day 2 (API + useEffect) |
+| 17:15 – 17:30 | **Assignment**                  | Take-home            | Add multiple notes, experiment with state updates, conditional rendering |
 
 ---
 
-## **Lab 1.3 – Creating Your First Component**
+## **Materials Needed**
 
-1. Create a new file: `src/components/Note.jsx`
-
-```jsx
-function Note({ title }) {
-  return <div className="note">{title}</div>;
-}
-
-export default Note;
-```
-
-2. Update `App.jsx` to use it:
-
-```jsx
-import Note from './components/Note';
-
-function App() {
-  return (
-    <div>
-      <h1>Note Keeper</h1>
-      <Note title="First note!" />
-      <Note title="Second note!" />
-    </div>
-  );
-}
-
-export default App;
-```
-
-* **Goal:** Display multiple notes using a reusable component.
+* Laptop with Node.js LTS installed
+* VS Code or preferred code editor
+* Browser (Chrome, Edge, or Firefox)
+* Day 1 Lab handout (Note Keeper starter exercises)
 
 ---
 
-## **Lab 1.4 – Adding State with `useState`**
+## **Teaching Notes**
 
-1. Import `useState`:
-
-```jsx
-import { useState } from "react";
-```
-
-2. Add basic state to track a note input:
-
-```jsx
-function App() {
-  const [noteInput, setNoteInput] = useState("");
-  const [notes, setNotes] = useState([]);
-
-  const addNote = () => {
-    if (!noteInput.trim()) return;
-    setNotes([...notes, noteInput]);
-    setNoteInput("");
-  };
-
-  return (
-    <div>
-      <h1>Note Keeper</h1>
-      <input
-        type="text"
-        value={noteInput}
-        onChange={(e) => setNoteInput(e.target.value)}
-        placeholder="Enter a new note"
-      />
-      <button onClick={addNote}>Add Note</button>
-
-      <div>
-        {notes.map((note, index) => (
-          <Note key={index} title={note} />
-        ))}
-      </div>
-    </div>
-  );
-}
-```
-
-* **Goal:** Type a note, click “Add Note,” and see it appear below.
+* **Interactive Approach:** Encourage participants to type code rather than just watch
+* **Live Coding:** Demonstrate concepts first, then guide participants through exercises
+* **Checkpoints:** Pause after each lab to ensure everyone sees their app rendering notes dynamically
+* **Terminology:** Reinforce concepts: declarative UI, state, props, keys, HMR
 
 ---
 
-## **Lab 1.5 – Styling (Optional, Quick Visual Feedback)**
+## **Homework / Practice**
 
-* Add some styles to `App.css`:
-
-```css
-.note {
-  padding: 8px;
-  margin: 4px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fefefe;
-}
-```
-
-* Verify that notes display with minimal styling.
+* Add a **character count** display for each note
+* Try **conditional rendering** for empty state: “No notes yet”
+* Experiment with **inline styles vs CSS classes**
+* Prepare for **Day 2**: introduction to `useEffect` and API calls
 
 ---
 
-## **Lab 1.6 – Reflection & Notes**
+If you want, I can **draft Day 2 Lesson Plan** that introduces **API integration, `useEffect`, and component extraction**, and maps it to a Day 2 lab.
 
-* **Questions for students:**
-
-  1. What happens when you call `setNotes([...notes, noteInput])`?
-  2. Why do we need `key` in `.map()`?
-  3. How does `useState` trigger re-renders?
-
-* **Learning outcomes:**
-
-  * React environment set up (Node + Vite)
-  * Functional components and JSX basics
-  * Component reuse
-  * Basic state management with `useState`
-  * Dynamic rendering of lists
-
----
-
-✅ **Day 1 Deliverable:**
-A working React app that lets users **add notes dynamically**.
-*No API, no advanced features yet—just the foundation.*
-
----
+Do you want me to do that next?
